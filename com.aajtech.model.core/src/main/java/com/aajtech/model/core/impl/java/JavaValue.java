@@ -12,7 +12,7 @@ import com.aajtech.model.core.api.Value;
 import com.aajtech.model.core.impl.BaseValue;
 
 public class JavaValue<T> extends BaseValue<T> {
-	private final T value;
+	private T value;
 	private final JavaType<T> type;
 
 	public JavaValue(@Nullable T value, JavaType<T> type) {
@@ -26,16 +26,37 @@ public class JavaValue<T> extends BaseValue<T> {
 	}
 
 	@Override
-	public T cast() {
+	@Nullable
+	public T get() {
 		return value;
+	}
+
+	@Override
+	public Value<T> set(@Nullable T value) {
+		T oldValue = this.value;
+		this.value = value;
+		if (!Objects.equals(oldValue, value)) {
+			observable.setChanged();
+			observable.notifyObservers();
+		}
+		return this;
 	}
 
 	@Override
 	public <X> Value<T> set(Property<T, X> property, Value<? extends X> value) {
 		String name = checkNotNull(property).getName();
-		X oldValue = nativeGet(name);
-		nativeSet(name, value.cast());
-		if (!Objects.equals(oldValue, value.cast())) {
+		Object fieldValue = nativeGet(name);
+		X oldValue;
+		if (fieldValue instanceof Value) {
+			@SuppressWarnings("unchecked")
+			Value<X> fieldValueX = (Value<X>) fieldValue;
+			oldValue = fieldValueX.get();
+			fieldValueX.set(value.get());
+		} else {
+			oldValue = nativeGet(name);
+			nativeSet(name, value.get());
+		}
+		if (!Objects.equals(oldValue, value.get())) {
 			observable.setChanged();
 			observable.notifyObservers();
 		}
@@ -46,7 +67,12 @@ public class JavaValue<T> extends BaseValue<T> {
 	@Override
 	public <X> Value<X> get(Property<T, X> property) {
 		String name = checkNotNull(property).getName();
-		return new JavaValue<X>(nativeGet(name), new JavaType<>((Class<X>) type.field(name).getType()));
+		Object fieldValue = nativeGet(name);
+		if (fieldValue instanceof Value) {
+			return (Value<X>) fieldValue;
+		} else {
+			return new JavaValue<X>((X) fieldValue, new JavaType<>((Class<X>) type.field(name).getType()));
+		}
 	}
 
 	@Override

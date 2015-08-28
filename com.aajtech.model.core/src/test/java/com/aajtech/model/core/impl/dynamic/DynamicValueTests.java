@@ -20,7 +20,7 @@ public class DynamicValueTests {
 		Value<Object> personValue = personType.create();
 		personValue.set(nameProperty, new JavaValue<>("pepe"));
 
-		assertEquals("pepe", personValue.get(nameProperty).cast());
+		assertEquals("pepe", personValue.get(nameProperty).get());
 
 		DynamicType addressType = new DynamicType("Address", "com.aajtech.model.core.impl.dynamic");
 		Property<Object, Object> addressProperty = new DynamicProperty<>("address", addressType, personType);
@@ -29,12 +29,12 @@ public class DynamicValueTests {
 
 		personValue.set(addressProperty, addressType.create());
 		personValue.get(addressProperty).set(streetProperty, new JavaValue<>("avenida siemprevivas"));
-		assertEquals("avenida siemprevivas", personValue.get(addressProperty).get(streetProperty).cast());
+		assertEquals("avenida siemprevivas", personValue.get(addressProperty).get(streetProperty).get());
 
 		Value<Address> otherAdderss = Address.TYPE.create();
 		personValue.set(addressProperty, otherAdderss);
 		personValue.get(addressProperty).set(streetProperty, new JavaValue<>("fake street"));
-		assertEquals("fake street", personValue.get(addressProperty).get(streetProperty).cast());
-		assertTrue(personValue.get(addressProperty).cast() instanceof Address);
+		assertEquals("fake street", personValue.get(addressProperty).get(streetProperty).get());
+		assertTrue(personValue.get(addressProperty).get() instanceof Address);
 	}
 }

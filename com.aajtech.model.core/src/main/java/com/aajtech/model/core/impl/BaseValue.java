@@ -15,7 +15,7 @@ public abstract class BaseValue<T> implements Value<T> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cast());
+		return Objects.hash(get());
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public abstract class BaseValue<T> implements Value<T> {
 			return false;
 		}
 		BaseValue<?> that = (BaseValue<?>) o;
-		return Objects.equals(cast(), that.cast());
+		return Objects.equals(get(), that.get());
 	}
 
 	@Override

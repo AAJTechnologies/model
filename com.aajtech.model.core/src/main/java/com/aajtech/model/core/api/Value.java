@@ -6,7 +6,9 @@ import javax.annotation.Nullable;
 
 public interface Value<T> {
 	@Nullable
-	T cast();
+	T get();
+
+	Value<T> set(@Nullable T value);
 
 	<X> Value<T> set(Property<T, X> property, Value<? extends X> value);
 

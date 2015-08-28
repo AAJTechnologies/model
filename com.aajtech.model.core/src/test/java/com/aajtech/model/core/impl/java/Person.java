@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
+import com.aajtech.model.core.api.Value;
 
 public class Person {
 	public static final Type<Person> TYPE = new JavaType<>(Person.class);
@@ -14,7 +15,7 @@ public class Person {
 	private String name;
 	private Address address;
 	private Person father;
-	private Date birthday;
+	public final Value<Date> birthday = new JavaValue<Date>(null, new JavaType<>(Date.class));
 
 	public String getName() {
 		return name;
@@ -41,10 +42,10 @@ public class Person {
 	}
 
 	public Date getBirthday() {
-		return birthday;
+		return birthday.get();
 	}
 
 	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+//		this.birthday = birthday;
 	}
 }

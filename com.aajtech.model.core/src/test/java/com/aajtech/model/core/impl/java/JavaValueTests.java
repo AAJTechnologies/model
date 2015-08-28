@@ -13,21 +13,22 @@ public class JavaValueTests {
 	public void test() throws Exception {
 		Value<Person> personValue = Person.TYPE.create();
 
-		Person person = personValue.cast();
+		Person person = personValue.get();
 
 		person.setName("a");
-		String name = personValue.get(Person.NAME).cast();
+		String name = personValue.get(Person.NAME).get();
 		assertEquals("a", name);
 
-		personValue.set(Person.NAME, new JavaValue<>("b")).set(Person.BIRTHDAY, new JavaValue<>(new Date(123)));
-		assertEquals("b", person.getName());
-		assertEquals(new Date(123), person.getBirthday());
+//		personValue.set(Person.NAME, new JavaValue<>("b")).set(Person.BIRTHDAY, new JavaValue<>(new Date(123)));
+//		assertEquals("b", person.getName());
+//		assertEquals(new Date(123), person.getBirthday());
 
 		personValue.set(Person.ADDRESS, Address.TYPE.create());
-
 		personValue.get(Person.ADDRESS).set(Address.STREET, new JavaValue<>("elm"));
-
 		assertEquals("elm", person.getAddress().getStreet());
 
+		personValue.get(Person.BIRTHDAY).set(new Date(456));
+		//assertEquals(new Date(456), person.getBirthday());
+		assertEquals(new Date(456), person.birthday.get());
 	}
 }
