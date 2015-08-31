@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Date;
 
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
@@ -11,10 +12,20 @@ import com.aajtech.model.core.api.Value;
 import com.google.common.collect.Iterables;
 
 public class JavaType<T> implements Type<T> {
+	public static final JavaType<String> STRING = JavaType.of(String.class);
+	public static final JavaType<Integer> INTEGER = JavaType.of(Integer.class);
+	public static final JavaType<Date> DATE = JavaType.of(Date.class);
+
+	public static <X> JavaType<X> of(Class<X> javaClass) {
+		checkNotNull(javaClass);
+		// TODO: Implement a type cache?
+		return new JavaType<>(javaClass);
+	}
+
 	private final Class<T> javaClass;
 
-	public JavaType(Class<T> javaClass) {
-		this.javaClass = checkNotNull(javaClass);
+	private JavaType(Class<T> javaClass) {
+		this.javaClass = javaClass;
 	}
 
 	@Override
@@ -34,21 +45,26 @@ public class JavaType<T> implements Type<T> {
 
 	@Override
 	public Iterable<Property<T, ?>> getProperties() {
-		return Iterables.transform(Arrays.asList(javaClass.getFields()), (Field field) -> new JavaProperty<>(field));
+		return Iterables.transform(Arrays.asList(javaClass.getFields()), (Field field) -> JavaProperty.of(field));
 	}
 
 	@Override
 	public <X> Property<T, X> getProperty(String name) {
-		return new JavaProperty<>(field(name));
+		return JavaProperty.of(field(name));
 	}
 
 	@Override
 	public Value<T> create() {
 		try {
-			return new JavaValue<T>(javaClass.newInstance(), this);
+			return JavaValue.of(javaClass.newInstance(), this);
 		} catch (InstantiationException | IllegalAccessException e) {
 			throw new IllegalArgumentException("Can not instantiate class: " + javaClass, e);
 		}
+	}
+
+	@Override
+	public Value<T> emptyValue() {
+		return JavaValue.of(this);
 	}
 
 	Field field(String name) {

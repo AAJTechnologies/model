@@ -8,9 +8,14 @@ import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
 
 public class JavaProperty<T, P> implements Property<T, P> {
+	public static <X, Y> JavaProperty<X, Y> of(Field field) {
+		checkNotNull(field);
+		return new JavaProperty<>(field);
+	}
+
 	private final Field field;
 
-	public JavaProperty(Field field) {
+	private JavaProperty(Field field) {
 		this.field = checkNotNull(field);
 	}
 
@@ -22,12 +27,12 @@ public class JavaProperty<T, P> implements Property<T, P> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Type<P> getType() {
-		return new JavaType<P>((Class<P>) field.getType());
+		return JavaType.of((Class<P>) field.getType());
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Type<T> getParent() {
-		return new JavaType<T>((Class<T>) field.getDeclaringClass());
+		return JavaType.of((Class<T>) field.getDeclaringClass());
 	}
 }

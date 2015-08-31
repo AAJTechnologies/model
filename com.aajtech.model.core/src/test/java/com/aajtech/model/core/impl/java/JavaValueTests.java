@@ -19,16 +19,16 @@ public class JavaValueTests {
 		String name = personValue.get(Person.NAME).get();
 		assertEquals("a", name);
 
-//		personValue.set(Person.NAME, new JavaValue<>("b")).set(Person.BIRTHDAY, new JavaValue<>(new Date(123)));
-//		assertEquals("b", person.getName());
-//		assertEquals(new Date(123), person.getBirthday());
+		personValue.set(Person.NAME, JavaValue.of("b")).set(Person.BIRTHDAY, JavaValue.of(new Date(123)));
+		assertEquals("b", person.getName());
+		assertEquals(new Date(123), person.getBirthday());
 
 		personValue.set(Person.ADDRESS, Address.TYPE.create());
-		personValue.get(Person.ADDRESS).set(Address.STREET, new JavaValue<>("elm"));
+		personValue.get(Person.ADDRESS).set(Address.STREET, JavaValue.of("elm"));
 		assertEquals("elm", person.getAddress().getStreet());
 
 		personValue.get(Person.BIRTHDAY).set(new Date(456));
-		//assertEquals(new Date(456), person.getBirthday());
+		assertEquals(new Date(456), person.getBirthday());
 		assertEquals(new Date(456), person.birthday.get());
 	}
 }

@@ -6,13 +6,12 @@ import org.junit.Test;
 
 import com.aajtech.model.core.api.Value;
 import com.aajtech.model.core.impl.java.JavaType;
-import com.aajtech.model.core.impl.java.JavaValue;
 
 public class BindTest {
 	@Test
 	public void test() throws Exception {
-		Value<Integer> source = new JavaValue<>(null, new JavaType<Integer>(Integer.class));
-		Value<String> target = new JavaValue<>(null, new JavaType<String>(String.class));
+		Value<Integer> source = JavaType.INTEGER.emptyValue();
+		Value<String> target = JavaType.STRING.emptyValue();
 
 		Bind.on(source)
 			.map((Integer value) -> value.toString())

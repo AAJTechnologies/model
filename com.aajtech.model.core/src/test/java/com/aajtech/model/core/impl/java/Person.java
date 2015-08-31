@@ -7,7 +7,7 @@ import com.aajtech.model.core.api.Type;
 import com.aajtech.model.core.api.Value;
 
 public class Person {
-	public static final Type<Person> TYPE = new JavaType<>(Person.class);
+	public static final Type<Person> TYPE = JavaType.of(Person.class);
 	public static final Property<Person, String> NAME = TYPE.getProperty("name");
 	public static final Property<Person, Date> BIRTHDAY = TYPE.getProperty("birthday");
 	public static final Property<Person, Address> ADDRESS = TYPE.getProperty("address");
@@ -15,7 +15,7 @@ public class Person {
 	private String name;
 	private Address address;
 	private Person father;
-	public final Value<Date> birthday = new JavaValue<Date>(null, new JavaType<>(Date.class));
+	public final Value<Date> birthday = JavaType.DATE.emptyValue();
 
 	public String getName() {
 		return name;
@@ -46,6 +46,6 @@ public class Person {
 	}
 
 	public void setBirthday(Date birthday) {
-//		this.birthday = birthday;
+		this.birthday.set(birthday);
 	}
 }

@@ -25,7 +25,7 @@ public class Bind<T> {
 	public <X> Bind<X> map(Function<T, X> converter) {
 		checkNotNull(converter);
 		@SuppressWarnings("unchecked")
-		JavaValue<X> targetValue = new JavaValue<X>(null, new JavaType<X>((Class<X>) Object.class));
+		JavaValue<X> targetValue = JavaValue.of(JavaType.of((Class<X>) Object.class));
 		this.value.getObservable().addObserver(new Observer() {
 			@Override
 			public void update(Observable o, Object arg) {

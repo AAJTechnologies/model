@@ -12,17 +12,31 @@ import com.aajtech.model.core.api.Value;
 import com.aajtech.model.core.impl.BaseValue;
 
 public class JavaValue<T> extends BaseValue<T> {
+	public static <X> JavaValue<X> of(@Nullable X value, JavaType<X> type) {
+		checkNotNull(type);
+		return new JavaValue<X>(value, type);
+	}
+
+	public static <X> JavaValue<X> of(JavaType<X> type) {
+		checkNotNull(type);
+		return new JavaValue<X>(null, type);
+	}
+
+	public static <X> JavaValue<X> of(X value) {
+		checkNotNull(value);
+		// TODO: immutable values could be cached? set() method should be
+		// removed?
+		@SuppressWarnings("unchecked")
+		JavaValue<X> javaValue = new JavaValue<X>(value, JavaType.of((Class<X>) value.getClass()));
+		return javaValue;
+	}
+
 	private T value;
 	private final JavaType<T> type;
 
-	public JavaValue(@Nullable T value, JavaType<T> type) {
+	private JavaValue(T value, JavaType<T> type) {
 		this.value = value;
-		this.type = checkNotNull(type);
-	}
-
-	@SuppressWarnings("unchecked")
-	public JavaValue(T value) {
-		this(checkNotNull(value), new JavaType<T>((Class<T>) value.getClass()));
+		this.type = type;
 	}
 
 	@Override
@@ -71,7 +85,7 @@ public class JavaValue<T> extends BaseValue<T> {
 		if (fieldValue instanceof Value) {
 			return (Value<X>) fieldValue;
 		} else {
-			return new JavaValue<X>((X) fieldValue, new JavaType<>((Class<X>) type.field(name).getType()));
+			return new JavaValue<X>((X) fieldValue, JavaType.of((Class<X>) type.field(name).getType()));
 		}
 	}
 

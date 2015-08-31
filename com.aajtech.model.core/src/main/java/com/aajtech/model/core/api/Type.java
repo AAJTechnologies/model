@@ -12,4 +12,6 @@ public interface Type<T> {
 	<X> Property<T, X> getProperty(String name);
 
 	Value<T> create();
+
+	Value<T> emptyValue();
 }

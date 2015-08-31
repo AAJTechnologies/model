@@ -83,4 +83,8 @@ public class DynamicType implements Type<Object> {
 		return new DynamicValue(this);
 	}
 
+	@Override
+	public Value<Object> emptyValue() {
+		return create();
+	}
 }
