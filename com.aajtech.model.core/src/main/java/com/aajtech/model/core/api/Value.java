@@ -14,7 +14,7 @@ public interface Value<T> {
 
 	<X> Value<X> get(Property<T, X> property);
 
-	Observable observable();
+	Observable getObservable();
 
 	Type<T> getType();
 }

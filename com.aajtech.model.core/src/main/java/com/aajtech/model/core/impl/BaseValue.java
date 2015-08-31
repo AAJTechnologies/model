@@ -9,7 +9,7 @@ public abstract class BaseValue<T> implements Value<T> {
 	protected final InnerObservable observable = new InnerObservable();
 
 	@Override
-	public Observable observable() {
+	public Observable getObservable() {
 		return observable;
 	}
 
