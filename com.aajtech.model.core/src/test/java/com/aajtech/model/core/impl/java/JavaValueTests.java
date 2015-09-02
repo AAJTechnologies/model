@@ -6,12 +6,12 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.aajtech.model.core.api.Value;
+import com.aajtech.model.core.api.ComplexValue;
 
 public class JavaValueTests {
 	@Test
 	public void test() throws Exception {
-		Value<Person> personValue = Person.TYPE.create();
+		ComplexValue<Person> personValue = JavaValue.of(new Person());
 
 		Person person = personValue.get();
 
@@ -23,8 +23,8 @@ public class JavaValueTests {
 		assertEquals("b", person.getName());
 		assertEquals(new Date(123), person.getBirthday());
 
-		personValue.set(Person.ADDRESS, Address.TYPE.create());
-		personValue.get(Person.ADDRESS).set(Address.STREET, JavaValue.of("elm"));
+		personValue.set(Person.ADDRESS, JavaValue.of(new Address()));
+		personValue.getComplex(Person.ADDRESS).set(Address.STREET, JavaValue.of("elm"));
 		assertEquals("elm", person.getAddress().getStreet());
 
 		personValue.get(Person.BIRTHDAY).set(new Date(456));

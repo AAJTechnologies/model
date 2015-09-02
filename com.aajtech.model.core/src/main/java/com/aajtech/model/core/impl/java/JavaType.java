@@ -8,7 +8,6 @@ import java.util.Date;
 
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
-import com.aajtech.model.core.api.Value;
 import com.google.common.collect.Iterables;
 
 public class JavaType<T> implements Type<T> {
@@ -51,20 +50,6 @@ public class JavaType<T> implements Type<T> {
 	@Override
 	public <X> Property<T, X> getProperty(String name) {
 		return JavaProperty.of(field(name));
-	}
-
-	@Override
-	public Value<T> create() {
-		try {
-			return JavaValue.of(javaClass.newInstance(), this);
-		} catch (InstantiationException | IllegalAccessException e) {
-			throw new IllegalArgumentException("Can not instantiate class: " + javaClass, e);
-		}
-	}
-
-	@Override
-	public Value<T> emptyValue() {
-		return JavaValue.of(this);
 	}
 
 	Field field(String name) {

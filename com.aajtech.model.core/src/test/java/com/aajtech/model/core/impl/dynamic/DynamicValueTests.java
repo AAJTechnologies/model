@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.aajtech.model.core.api.ComplexValue;
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Value;
 import com.aajtech.model.core.impl.java.Address;
@@ -14,27 +15,27 @@ import com.aajtech.model.core.impl.java.JavaValue;
 public class DynamicValueTests {
 	@Test
 	public void test() throws Exception {
-		DynamicType personType = new DynamicType("Person", "com.aajtech.model.core.impl.dynamic");
+		DynamicType personType = DynamicType.of("Person", "com.aajtech.model.core.impl.dynamic");
 		Property<Object, String> nameProperty = new DynamicProperty<>("name", JavaType.of(String.class), personType);
 
-		Value<Object> personValue = personType.create();
+		ComplexValue<Object> personValue = DynamicValue.of(personType);
 		personValue.set(nameProperty, JavaValue.of("pepe"));
 
 		assertEquals("pepe", personValue.get(nameProperty).get());
 
-		DynamicType addressType = new DynamicType("Address", "com.aajtech.model.core.impl.dynamic");
+		DynamicType addressType = DynamicType.of("Address", "com.aajtech.model.core.impl.dynamic");
 		Property<Object, Object> addressProperty = new DynamicProperty<>("address", addressType, personType);
 		Property<Object, String> streetProperty = new DynamicProperty<>("street", JavaType.of(String.class),
 				addressType);
 
-		personValue.set(addressProperty, addressType.create());
-		personValue.get(addressProperty).set(streetProperty, JavaValue.of("avenida siemprevivas"));
-		assertEquals("avenida siemprevivas", personValue.get(addressProperty).get(streetProperty).get());
+		personValue.set(addressProperty, JavaValue.of(new Address()));
+		personValue.getComplex(addressProperty).set(streetProperty, JavaValue.of("avenida siemprevivas"));
+		assertEquals("avenida siemprevivas", personValue.getComplex(addressProperty).get(streetProperty).get());
 
-		Value<Address> otherAdderss = Address.TYPE.create();
+		Value<Address> otherAdderss = JavaValue.of(new Address());
 		personValue.set(addressProperty, otherAdderss);
-		personValue.get(addressProperty).set(streetProperty, JavaValue.of("fake street"));
-		assertEquals("fake street", personValue.get(addressProperty).get(streetProperty).get());
+		personValue.getComplex(addressProperty).set(streetProperty, JavaValue.of("fake street"));
+		assertEquals("fake street", personValue.getComplex(addressProperty).get(streetProperty).get());
 		assertTrue(personValue.get(addressProperty).get() instanceof Address);
 	}
 }

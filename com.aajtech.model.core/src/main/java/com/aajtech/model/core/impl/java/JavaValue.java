@@ -6,12 +6,13 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
+import com.aajtech.model.core.api.ComplexValue;
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
 import com.aajtech.model.core.api.Value;
 import com.aajtech.model.core.impl.BaseValue;
 
-public class JavaValue<T> extends BaseValue<T> {
+public class JavaValue<T> extends BaseValue<T> implements ComplexValue<T> {
 	public static <X> JavaValue<X> of(@Nullable X value, JavaType<X> type) {
 		checkNotNull(type);
 		return new JavaValue<X>(value, type);
@@ -46,18 +47,17 @@ public class JavaValue<T> extends BaseValue<T> {
 	}
 
 	@Override
-	public Value<T> set(@Nullable T value) {
+	public void set(@Nullable T value) {
 		T oldValue = this.value;
 		this.value = value;
 		if (!Objects.equals(oldValue, value)) {
 			observable.setChanged();
 			observable.notifyObservers();
 		}
-		return this;
 	}
 
 	@Override
-	public <X> Value<T> set(Property<T, X> property, Value<? extends X> value) {
+	public <X> ComplexValue<T> set(Property<T, X> property, Value<? extends X> value) {
 		String name = checkNotNull(property).getName();
 		Object fieldValue = nativeGet(name);
 		X oldValue;
@@ -77,13 +77,18 @@ public class JavaValue<T> extends BaseValue<T> {
 		return this;
 	}
 
+	@Override
+	public <X> ComplexValue<X> get(Property<T, X> property) {
+		return getComplex(checkNotNull(property));
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public <X> Value<X> get(Property<T, X> property) {
+	public <X> ComplexValue<X> getComplex(Property<T, X> property) {
 		String name = checkNotNull(property).getName();
 		Object fieldValue = nativeGet(name);
 		if (fieldValue instanceof Value) {
-			return (Value<X>) fieldValue;
+			return (ComplexValue<X>) fieldValue;
 		} else {
 			return new JavaValue<X>((X) fieldValue, JavaType.of((Class<X>) type.field(name).getType()));
 		}

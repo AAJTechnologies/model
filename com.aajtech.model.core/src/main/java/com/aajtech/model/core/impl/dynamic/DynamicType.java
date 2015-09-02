@@ -7,17 +7,22 @@ import java.util.Objects;
 
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
-import com.aajtech.model.core.api.Value;
 import com.google.common.collect.Maps;
 
 public class DynamicType implements Type<Object> {
+	public static DynamicType of(String name, String namespace) {
+		checkNotNull(name);
+		checkNotNull(namespace);
+		return new DynamicType(name, namespace);
+	}
+
 	private final String name;
 	private final String namespace;
 	private final Map<String, Property<Object, ?>> properties;
 
-	public DynamicType(String name, String namespace) {
-		this.name = checkNotNull(name);
-		this.namespace = checkNotNull(namespace);
+	private DynamicType(String name, String namespace) {
+		this.name = name;
+		this.namespace = namespace;
 		this.properties = Maps.newLinkedHashMap();
 	}
 
@@ -76,15 +81,5 @@ public class DynamicType implements Type<Object> {
 	@Override
 	public String toString() {
 		return "DynamicType [name=" + name + ", namespace=" + namespace + ", properties=" + properties + "]";
-	}
-
-	@Override
-	public Value<Object> create() {
-		return new DynamicValue(this);
-	}
-
-	@Override
-	public Value<Object> emptyValue() {
-		return create();
 	}
 }

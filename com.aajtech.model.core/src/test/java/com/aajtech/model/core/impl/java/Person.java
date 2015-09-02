@@ -15,7 +15,7 @@ public class Person {
 	private String name;
 	private Address address;
 	private Person father;
-	public final Value<Date> birthday = JavaType.DATE.emptyValue();
+	public final Value<Date> birthday = JavaValue.of(JavaType.DATE);
 
 	public String getName() {
 		return name;

@@ -10,8 +10,4 @@ public interface Type<T> {
 	Iterable<Property<T, ?>> getProperties();
 
 	<X> Property<T, X> getProperty(String name);
-
-	Value<T> create();
-
-	Value<T> emptyValue();
 }
