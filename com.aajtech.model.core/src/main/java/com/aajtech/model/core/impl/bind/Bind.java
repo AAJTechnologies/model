@@ -1,4 +1,4 @@
-package com.aajtech.model.bind;
+package com.aajtech.model.core.impl.bind;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

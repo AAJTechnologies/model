@@ -1,7 +1,5 @@
 project.ext {
-	androidVersion = '2.1.2'
-	gwtVersion = '2.8.0-SNAPSHOT'
-	guavaVersion = '17.0'
+	guavaVersion = '18.0'
 }
 
 allprojects {

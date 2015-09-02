@@ -1,10 +1,11 @@
-package com.aajtech.model.bind;
+package com.aajtech.model.core.impl.bind;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import com.aajtech.model.core.api.Value;
+import com.aajtech.model.core.impl.bind.Bind;
 import com.aajtech.model.core.impl.java.JavaType;
 
 public class BindTest {

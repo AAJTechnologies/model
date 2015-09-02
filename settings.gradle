@@ -1,6 +1,4 @@
 rootProject.name = 'aajtechModel'
 
-include ':com.aajtech.model.bind'
 include ':com.aajtech.model.core'
 include ':com.aajtech.model.gen'
-include ':com.aajtech.model.java'
