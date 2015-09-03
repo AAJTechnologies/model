@@ -11,7 +11,7 @@ import com.aajtech.model.core.api.ComplexValue;
 public class JavaValueTests {
 	@Test
 	public void test() throws Exception {
-		ComplexValue<Person> personValue = JavaValue.of(new Person());
+		ComplexValue<Person> personValue = JavaComplexValue.of(new Person());
 
 		Person person = personValue.get();
 
@@ -23,7 +23,7 @@ public class JavaValueTests {
 		assertEquals("b", person.getName());
 		assertEquals(new Date(123), person.getBirthday());
 
-		personValue.set(Person.ADDRESS, JavaValue.of(new Address()));
+		personValue.set(Person.ADDRESS, JavaComplexValue.of(new Address()));
 		personValue.getComplex(Person.ADDRESS).set(Address.STREET, JavaValue.of("elm"));
 		assertEquals("elm", person.getAddress().getStreet());
 

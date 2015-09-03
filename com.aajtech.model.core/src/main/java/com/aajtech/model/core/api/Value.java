@@ -1,7 +1,5 @@
 package com.aajtech.model.core.api;
 
-import java.util.Observable;
-
 import javax.annotation.Nullable;
 
 public interface Value<T> {
@@ -10,7 +8,7 @@ public interface Value<T> {
 
 	void set(@Nullable T value);
 
-	Observable getObservable();
+	Registration addObserver(Runnable observer);
 
 	Type<T> getType();
 }

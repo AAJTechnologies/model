@@ -1,5 +1,5 @@
 project.ext {
-	guavaVersion = '18.0'
+	guavaVersion = '19.0-SNAPSHOT'
 }
 
 allprojects {
@@ -12,6 +12,9 @@ allprojects {
 	    jcenter()
 	    maven {
 	        url "https://oss.sonatype.org/content/repositories/snapshots/"
+	    }
+	    maven {
+	        url "https://oss.sonatype.org/content/repositories/google-snapshots/"
 	    }
 	}
 }

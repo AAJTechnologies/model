@@ -1,16 +1,33 @@
 package com.aajtech.model.core.impl;
 
-import java.util.Objects;
-import java.util.Observable;
+import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
+import java.util.Objects;
+
+import com.aajtech.model.core.api.Registration;
 import com.aajtech.model.core.api.Value;
+import com.google.common.collect.Sets;
 
 public abstract class BaseValue<T> implements Value<T> {
-	protected final InnerObservable observable = new InnerObservable();
+	protected final Collection<Runnable> observers = Sets.newHashSet();
 
 	@Override
-	public Observable getObservable() {
-		return observable;
+	public Registration addObserver(Runnable observer) {
+		checkNotNull(observer);
+		observers.add(observer);
+		return new Registration() {
+			@Override
+			public void remove() {
+				observers.remove(observer);
+			}
+		};
+	}
+
+	protected void notifyObservers() {
+		for (Runnable observer : observers) {
+			observer.run();
+		}
 	}
 
 	@Override
@@ -28,17 +45,5 @@ public abstract class BaseValue<T> implements Value<T> {
 		}
 		BaseValue<?> that = (BaseValue<?>) o;
 		return Objects.equals(get(), that.get());
-	}
-
-	@Override
-	public String toString() {
-		return "BaseValue [observable=" + observable + "]";
-	}
-
-	protected static class InnerObservable extends Observable {
-		@Override
-		public synchronized void setChanged() {
-			super.setChanged();
-		}
 	}
 }

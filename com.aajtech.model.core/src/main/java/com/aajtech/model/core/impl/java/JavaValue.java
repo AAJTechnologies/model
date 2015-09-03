@@ -6,36 +6,32 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-import com.aajtech.model.core.api.ComplexValue;
-import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
 import com.aajtech.model.core.api.Value;
 import com.aajtech.model.core.impl.BaseValue;
 
-public class JavaValue<T> extends BaseValue<T> implements ComplexValue<T> {
+public class JavaValue<T> extends BaseValue<T> implements Value<T> {
 	public static <X> JavaValue<X> of(@Nullable X value, JavaType<X> type) {
 		checkNotNull(type);
-		return new JavaValue<X>(value, type);
+		return new JavaValue<>(value, type);
 	}
 
 	public static <X> JavaValue<X> of(JavaType<X> type) {
 		checkNotNull(type);
-		return new JavaValue<X>(null, type);
+		return new JavaValue<>(null, type);
 	}
 
 	public static <X> JavaValue<X> of(X value) {
 		checkNotNull(value);
-		// TODO: immutable values could be cached? set() method should be
-		// removed?
 		@SuppressWarnings("unchecked")
-		JavaValue<X> javaValue = new JavaValue<X>(value, JavaType.of((Class<X>) value.getClass()));
+		JavaValue<X> javaValue = new JavaValue<>(value, JavaType.of((Class<X>) value.getClass()));
 		return javaValue;
 	}
 
 	private T value;
 	private final JavaType<T> type;
 
-	private JavaValue(T value, JavaType<T> type) {
+	JavaValue(T value, JavaType<T> type) {
 		this.value = value;
 		this.type = type;
 	}
@@ -51,68 +47,12 @@ public class JavaValue<T> extends BaseValue<T> implements ComplexValue<T> {
 		T oldValue = this.value;
 		this.value = value;
 		if (!Objects.equals(oldValue, value)) {
-			observable.setChanged();
-			observable.notifyObservers();
-		}
-	}
-
-	@Override
-	public <X> ComplexValue<T> set(Property<T, X> property, Value<? extends X> value) {
-		String name = checkNotNull(property).getName();
-		Object fieldValue = nativeGet(name);
-		X oldValue;
-		if (fieldValue instanceof Value) {
-			@SuppressWarnings("unchecked")
-			Value<X> fieldValueX = (Value<X>) fieldValue;
-			oldValue = fieldValueX.get();
-			fieldValueX.set(value.get());
-		} else {
-			oldValue = nativeGet(name);
-			nativeSet(name, value.get());
-		}
-		if (!Objects.equals(oldValue, value.get())) {
-			observable.setChanged();
-			observable.notifyObservers();
-		}
-		return this;
-	}
-
-	@Override
-	public <X> ComplexValue<X> get(Property<T, X> property) {
-		return getComplex(checkNotNull(property));
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <X> ComplexValue<X> getComplex(Property<T, X> property) {
-		String name = checkNotNull(property).getName();
-		Object fieldValue = nativeGet(name);
-		if (fieldValue instanceof Value) {
-			return (ComplexValue<X>) fieldValue;
-		} else {
-			return new JavaValue<X>((X) fieldValue, JavaType.of((Class<X>) type.field(name).getType()));
+			notifyObservers();
 		}
 	}
 
 	@Override
 	public Type<T> getType() {
 		return type;
-	}
-
-	private <X> void nativeSet(String name, X fieldValue) {
-		try {
-			type.field(name).set(value, fieldValue);
-		} catch (IllegalAccessException | SecurityException e) {
-			throw new IllegalArgumentException("Invalid field: " + name, e);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private <X> X nativeGet(String name) {
-		try {
-			return (X) type.field(name).get(value);
-		} catch (IllegalAccessException | SecurityException e) {
-			throw new IllegalArgumentException("Invalid field: " + name, e);
-		}
 	}
 }

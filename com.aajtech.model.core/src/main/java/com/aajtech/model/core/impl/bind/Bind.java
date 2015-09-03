@@ -2,9 +2,6 @@ package com.aajtech.model.core.impl.bind;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import com.aajtech.model.core.api.Value;
 import com.aajtech.model.core.impl.java.JavaType;
 import com.aajtech.model.core.impl.java.JavaValue;
@@ -26,9 +23,9 @@ public class Bind<T> {
 		checkNotNull(converter);
 		@SuppressWarnings("unchecked")
 		JavaValue<X> targetValue = JavaValue.of(JavaType.of((Class<X>) Object.class));
-		this.value.getObservable().addObserver(new Observer() {
+		this.value.addObserver(new Runnable() {
 			@Override
-			public void update(Observable o, Object arg) {
+			public void run() {
 				targetValue.set(converter.apply(value.get()));
 			}
 		});
@@ -36,9 +33,9 @@ public class Bind<T> {
 	}
 
 	public void to(Value<T> target) {
-		this.value.getObservable().addObserver(new Observer() {
+		this.value.addObserver(new Runnable() {
 			@Override
-			public void update(Observable o, Object arg) {
+			public void run() {
 				target.set(value.get());
 			}
 		});

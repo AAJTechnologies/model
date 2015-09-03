@@ -6,8 +6,4 @@ public interface Type<T> {
 	String getName();
 
 	String getNamespace();
-
-	Iterable<Property<T, ?>> getProperties();
-
-	<X> Property<T, X> getProperty(String name);
 }

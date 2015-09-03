@@ -2,12 +2,12 @@ package com.aajtech.model.core.impl.java;
 
 import java.util.Date;
 
+import com.aajtech.model.core.api.ComplexType;
 import com.aajtech.model.core.api.Property;
-import com.aajtech.model.core.api.Type;
 import com.aajtech.model.core.api.Value;
 
 public class Person {
-	public static final Type<Person> TYPE = JavaType.of(Person.class);
+	public static final ComplexType<Person> TYPE = JavaComplexType.of(Person.class);
 	public static final Property<Person, String> NAME = TYPE.getProperty("name");
 	public static final Property<Person, Date> BIRTHDAY = TYPE.getProperty("birthday");
 	public static final Property<Person, Address> ADDRESS = TYPE.getProperty("address");

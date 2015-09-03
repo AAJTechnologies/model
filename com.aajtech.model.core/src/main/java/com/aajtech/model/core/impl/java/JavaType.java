@@ -2,13 +2,9 @@ package com.aajtech.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.Date;
 
-import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
-import com.google.common.collect.Iterables;
 
 public class JavaType<T> implements Type<T> {
 	public static final JavaType<String> STRING = JavaType.of(String.class);
@@ -23,7 +19,7 @@ public class JavaType<T> implements Type<T> {
 
 	private final Class<T> javaClass;
 
-	private JavaType(Class<T> javaClass) {
+	JavaType(Class<T> javaClass) {
 		this.javaClass = javaClass;
 	}
 
@@ -39,27 +35,11 @@ public class JavaType<T> implements Type<T> {
 
 	@Override
 	public String getNamespace() {
-		return javaClass.getPackage().getName();
+		String name = javaClass.getCanonicalName();
+		return name.substring(0, name.lastIndexOf('.'));
 	}
 
-	@Override
-	public Iterable<Property<T, ?>> getProperties() {
-		return Iterables.transform(Arrays.asList(javaClass.getFields()), (Field field) -> JavaProperty.of(field));
+	Class<T> getJavaClass() {
+		return javaClass;
 	}
-
-	@Override
-	public <X> Property<T, X> getProperty(String name) {
-		return JavaProperty.of(field(name));
-	}
-
-	Field field(String name) {
-		try {
-			Field field = javaClass.getDeclaredField(name);
-			field.setAccessible(true);
-			return field;
-		} catch (NoSuchFieldException | SecurityException e) {
-			throw new IllegalArgumentException("Invalid field: " + name, e);
-		}
-	}
-
 }

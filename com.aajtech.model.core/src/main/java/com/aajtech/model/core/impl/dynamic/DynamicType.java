@@ -5,11 +5,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Map;
 import java.util.Objects;
 
+import com.aajtech.model.core.api.ComplexType;
 import com.aajtech.model.core.api.Property;
-import com.aajtech.model.core.api.Type;
 import com.google.common.collect.Maps;
 
-public class DynamicType implements Type<Object> {
+public class DynamicType implements ComplexType<Object> {
 	public static DynamicType of(String name, String namespace) {
 		checkNotNull(name);
 		checkNotNull(namespace);

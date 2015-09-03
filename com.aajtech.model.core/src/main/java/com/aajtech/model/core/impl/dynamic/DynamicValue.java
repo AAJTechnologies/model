@@ -45,8 +45,7 @@ public class DynamicValue extends BaseValue<Object>implements ComplexValue<Objec
 		Object oldValue = this.value;
 		this.value = value;
 		if (!Objects.equals(oldValue, value)) {
-			observable.setChanged();
-			observable.notifyObservers();
+			notifyObservers();
 		}
 	}
 
@@ -55,8 +54,7 @@ public class DynamicValue extends BaseValue<Object>implements ComplexValue<Objec
 		String name = checkNotNull(property).getName();
 		values.put(name, value);
 		if (!Objects.equals(values.get(name), value)) {
-			observable.setChanged();
-			observable.notifyObservers();
+			notifyObservers();
 		}
 		return this;
 	}
