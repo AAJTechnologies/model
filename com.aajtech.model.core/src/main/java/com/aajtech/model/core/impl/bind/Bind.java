@@ -23,7 +23,7 @@ public class Bind<T> {
 		checkNotNull(converter);
 		@SuppressWarnings("unchecked")
 		JavaValue<X> targetValue = JavaValue.of(JavaType.of((Class<X>) Object.class));
-		this.value.addObserver(new Runnable() {
+		value.addObserver(new Runnable() {
 			@Override
 			public void run() {
 				targetValue.set(converter.apply(value.get()));
@@ -33,7 +33,7 @@ public class Bind<T> {
 	}
 
 	public void to(Value<T> target) {
-		this.value.addObserver(new Runnable() {
+		value.addObserver(new Runnable() {
 			@Override
 			public void run() {
 				target.set(value.get());

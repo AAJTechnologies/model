@@ -6,7 +6,9 @@ import java.lang.reflect.Field;
 
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
+import com.google.common.annotations.GwtIncompatible;
 
+@GwtIncompatible("Reflection")
 public class JavaProperty<T, P> implements Property<T, P> {
 	public static <X, Y> JavaProperty<X, Y> of(Field field) {
 		checkNotNull(field);
