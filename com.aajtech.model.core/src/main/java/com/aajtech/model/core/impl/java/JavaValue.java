@@ -2,8 +2,6 @@ package com.aajtech.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Objects;
-
 import javax.annotation.Nullable;
 
 import com.aajtech.model.core.api.Type;
@@ -43,12 +41,8 @@ public class JavaValue<T> extends BaseValue<T> implements Value<T> {
 	}
 
 	@Override
-	public void set(@Nullable T value) {
-		T oldValue = this.value;
+	protected void setValue(@Nullable T value) {
 		this.value = value;
-		if (!Objects.equals(oldValue, value)) {
-			notifyObservers();
-		}
 	}
 
 	@Override

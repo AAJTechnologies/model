@@ -5,12 +5,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.Objects;
 
+import javax.annotation.Nullable;
+
 import com.aajtech.model.core.api.Registration;
 import com.aajtech.model.core.api.Value;
 import com.google.common.collect.Sets;
 
 public abstract class BaseValue<T> implements Value<T> {
 	protected final Collection<Runnable> observers = Sets.newHashSet();
+
+	@Override
+	public void set(T value) {
+		if (!Objects.equals(value, get())) {
+			setValue(value);
+			notifyObservers();
+		}
+	}
+
+	protected abstract void setValue(@Nullable T value);
 
 	@Override
 	public Registration addObserver(Runnable observer) {

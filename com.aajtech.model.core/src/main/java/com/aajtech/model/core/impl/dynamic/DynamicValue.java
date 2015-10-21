@@ -41,12 +41,8 @@ public class DynamicValue extends BaseValue<Object>implements ComplexValue<Objec
 	}
 
 	@Override
-	public void set(@Nullable Object value) {
-		Object oldValue = this.value;
+	protected void setValue(@Nullable Object value) {
 		this.value = value;
-		if (!Objects.equals(oldValue, value)) {
-			notifyObservers();
-		}
 	}
 
 	@Override
