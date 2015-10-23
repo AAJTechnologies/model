@@ -25,7 +25,7 @@ public abstract class BaseValue<T> implements Value<T> {
 	protected abstract void setValue(@Nullable T value);
 
 	@Override
-	public Registration addObserver(Runnable observer) {
+	public Registration addObserver(final Runnable observer) {
 		checkNotNull(observer);
 		observers.add(observer);
 		return new Registration() {
