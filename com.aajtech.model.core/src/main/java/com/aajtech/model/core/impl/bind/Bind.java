@@ -19,7 +19,7 @@ public class Bind<T> {
 		return new Bind<>(value);
 	}
 
-	public <X> Bind<X> map(Function<T, X> converter) {
+	public <X> Bind<X> map(final Function<T, X> converter) {
 		checkNotNull(converter);
 		@SuppressWarnings("unchecked")
 		final JavaValue<X> targetValue = JavaValue.of(JavaType.of((Class<X>) Object.class));
