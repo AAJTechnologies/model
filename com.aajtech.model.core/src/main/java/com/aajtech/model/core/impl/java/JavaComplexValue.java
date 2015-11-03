@@ -2,14 +2,13 @@ package com.aajtech.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Objects;
-
 import javax.annotation.Nullable;
 
 import com.aajtech.model.core.api.ComplexValue;
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Value;
 import com.google.common.annotations.GwtIncompatible;
+import com.google.common.base.Objects;
 
 @GwtIncompatible("Reflection")
 public class JavaComplexValue<T> extends JavaValue<T>implements ComplexValue<T> {
@@ -46,7 +45,7 @@ public class JavaComplexValue<T> extends JavaValue<T>implements ComplexValue<T> 
 			oldValue = nativeGet(name);
 			nativeSet(name, value.get());
 		}
-		if (!Objects.equals(oldValue, value.get())) {
+		if (!Objects.equal(oldValue, value.get())) {
 			notifyObservers();
 		}
 		return this;

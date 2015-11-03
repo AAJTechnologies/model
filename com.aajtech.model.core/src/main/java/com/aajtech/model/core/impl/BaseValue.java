@@ -3,12 +3,12 @@ package com.aajtech.model.core.impl;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Objects;
 
 import javax.annotation.Nullable;
 
 import com.aajtech.model.core.api.Registration;
 import com.aajtech.model.core.api.Value;
+import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
 
 public abstract class BaseValue<T> implements Value<T> {
@@ -16,7 +16,7 @@ public abstract class BaseValue<T> implements Value<T> {
 
 	@Override
 	public void set(T value) {
-		if (!Objects.equals(value, get())) {
+		if (!Objects.equal(value, get())) {
 			setValue(value);
 			notifyObservers();
 		}
@@ -44,7 +44,7 @@ public abstract class BaseValue<T> implements Value<T> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(get());
+		return Objects.hashCode(get());
 	}
 
 	@Override
@@ -56,6 +56,6 @@ public abstract class BaseValue<T> implements Value<T> {
 			return false;
 		}
 		BaseValue<?> that = (BaseValue<?>) o;
-		return Objects.equals(get(), that.get());
+		return Objects.equal(get(), that.get());
 	}
 }

@@ -2,10 +2,10 @@ package com.aajtech.model.core.impl.dynamic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Objects;
 
 import com.aajtech.model.core.api.Property;
 import com.aajtech.model.core.api.Type;
+import com.google.common.base.Objects;
 
 public class DynamicProperty<P> implements Property<Object, P> {
 	public static <X> DynamicProperty<X> of(String name, Type<X> type, DynamicType parent) {
@@ -44,7 +44,7 @@ public class DynamicProperty<P> implements Property<Object, P> {
 	@Override
 	public int hashCode() {
 		// Not including type to avoid infinite cycles.
-		return Objects.hash(name);
+		return Objects.hashCode(name);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class DynamicProperty<P> implements Property<Object, P> {
 			return false;
 		}
 		DynamicProperty<?> that = (DynamicProperty<?>) o;
-		return Objects.equals(name, that.name) && Objects.equals(type, that.type);
+		return Objects.equal(name, that.name) && Objects.equal(type, that.type);
 	}
 
 	@Override

@@ -3,10 +3,10 @@ package com.aajtech.model.core.impl.dynamic;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
-import java.util.Objects;
 
 import com.aajtech.model.core.api.ComplexType;
 import com.aajtech.model.core.api.Property;
+import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
 public class DynamicType implements ComplexType<Object> {
@@ -62,7 +62,7 @@ public class DynamicType implements ComplexType<Object> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, namespace, properties);
+		return Objects.hashCode(name, namespace, properties);
 	}
 
 	@Override
@@ -74,8 +74,9 @@ public class DynamicType implements ComplexType<Object> {
 			return false;
 		}
 		DynamicType that = (DynamicType) o;
-		return Objects.equals(name, that.name) && Objects.equals(namespace, that.namespace)
-				&& Objects.equals(properties, that.properties);
+		return Objects.equal(name, that.name)
+				&& Objects.equal(namespace, that.namespace)
+				&& Objects.equal(properties, that.properties);
 	}
 
 	@Override
