@@ -2,6 +2,7 @@ package com.aajtech.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 
 import com.aajtech.model.core.api.Type;
@@ -13,7 +14,16 @@ public class JavaType<T> implements Type<T> {
 
 	public static <X> JavaType<X> of(Class<X> javaClass) {
 		checkNotNull(javaClass);
-		// TODO: Implement a type cache?
+		return new JavaType<>(javaClass);
+	}
+
+	public static <X> JavaType<X> of(TypeLiteral<X> typeLiteral) {
+		checkNotNull(typeLiteral);
+		// TODO: This method looses generic information
+		ParameterizedType parameterizedType = (ParameterizedType) ((ParameterizedType) typeLiteral.getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0];
+		@SuppressWarnings("unchecked")
+		Class<X> javaClass = (Class<X>) parameterizedType.getRawType();
 		return new JavaType<>(javaClass);
 	}
 
