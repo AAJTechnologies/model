@@ -2,8 +2,8 @@ package com.aajtech.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.Date;
+import java.util.List;
 
 import com.aajtech.model.core.api.Type;
 
@@ -17,14 +17,16 @@ public class JavaType<T> implements Type<T> {
 		return new JavaType<>(javaClass);
 	}
 
-	public static <X> JavaType<X> of(TypeLiteral<X> typeLiteral) {
-		checkNotNull(typeLiteral);
-		// TODO: This method looses generic information
-		ParameterizedType parameterizedType = (ParameterizedType) ((ParameterizedType) typeLiteral.getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
-		@SuppressWarnings("unchecked")
-		Class<X> javaClass = (Class<X>) parameterizedType.getRawType();
-		return new JavaType<>(javaClass);
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static <X> JavaType<List<X>> ofList(Class<X> javaClass) {
+		checkNotNull(javaClass);
+		return new JavaType<>((Class)List.class);
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static <X> JavaType<Iterable<X>> ofIterable(Class<X> javaClass) {
+		checkNotNull(javaClass);
+		return new JavaType<>((Class)Iterable.class);
 	}
 
 	private final Class<T> javaClass;
