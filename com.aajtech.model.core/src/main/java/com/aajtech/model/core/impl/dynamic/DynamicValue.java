@@ -16,7 +16,6 @@ import com.google.common.collect.Maps;
 
 public class DynamicValue extends BaseValue<Object>implements ComplexValue<Object> {
 	public static DynamicValue of(DynamicType type) {
-		checkNotNull(type);
 		return new DynamicValue(type);
 	}
 
@@ -24,8 +23,8 @@ public class DynamicValue extends BaseValue<Object>implements ComplexValue<Objec
 	private final DynamicType type;
 	private final Map<String, Value<?>> values;
 
-	private DynamicValue(DynamicType type) {
-		this.type = type;
+	protected DynamicValue(DynamicType type) {
+		this.type = checkNotNull(type);
 		this.values = Maps.newHashMap();
 	}
 

@@ -21,8 +21,7 @@ public class Bind<T> {
 
 	public <X> Bind<X> map(final Function<T, X> converter) {
 		checkNotNull(converter);
-		@SuppressWarnings("unchecked")
-		final JavaValue<X> targetValue = JavaValue.of(JavaType.of((Class<X>) Object.class));
+		final JavaValue<X> targetValue = JavaValue.of(JavaType.ofUnchecked(Object.class));
 		value.addObserver(new Runnable() {
 			@Override
 			public void run() {
@@ -33,6 +32,7 @@ public class Bind<T> {
 	}
 
 	public void to(final Value<T> target) {
+		checkNotNull(target);
 		value.addObserver(new Runnable() {
 			@Override
 			public void run() {

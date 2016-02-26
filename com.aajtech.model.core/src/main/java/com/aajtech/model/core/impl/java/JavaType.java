@@ -17,6 +17,12 @@ public class JavaType<T> implements Type<T> {
 		return new JavaType<>(javaClass);
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <X> JavaType<X> ofUnchecked(Class<?> javaClass) {
+		checkNotNull(javaClass);
+		return new JavaType<X>((Class<X>) javaClass);
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <X> JavaType<List<X>> ofList(Class<X> javaClass) {
 		checkNotNull(javaClass);
@@ -31,7 +37,7 @@ public class JavaType<T> implements Type<T> {
 
 	private final Class<T> javaClass;
 
-	JavaType(Class<T> javaClass) {
+	protected JavaType(Class<T> javaClass) {
 		this.javaClass = javaClass;
 	}
 

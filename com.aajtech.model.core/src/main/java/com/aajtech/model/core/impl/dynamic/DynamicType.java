@@ -11,8 +11,6 @@ import com.google.common.collect.Maps;
 
 public class DynamicType implements ComplexType<Object> {
 	public static DynamicType of(String name, String namespace) {
-		checkNotNull(name);
-		checkNotNull(namespace);
 		return new DynamicType(name, namespace);
 	}
 
@@ -20,9 +18,9 @@ public class DynamicType implements ComplexType<Object> {
 	private final String namespace;
 	private final Map<String, Property<Object, ?>> properties;
 
-	private DynamicType(String name, String namespace) {
-		this.name = name;
-		this.namespace = namespace;
+	protected DynamicType(String name, String namespace) {
+		this.name = checkNotNull(name);
+		this.namespace = checkNotNull(namespace);
 		this.properties = Maps.newLinkedHashMap();
 	}
 

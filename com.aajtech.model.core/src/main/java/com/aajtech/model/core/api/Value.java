@@ -11,4 +11,6 @@ public interface Value<T> {
 	Registration addObserver(Runnable observer);
 
 	Type<T> getType();
+
+	void notifyObservers();
 }

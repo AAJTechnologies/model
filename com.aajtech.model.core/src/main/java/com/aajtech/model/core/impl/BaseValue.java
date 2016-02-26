@@ -36,7 +36,8 @@ public abstract class BaseValue<T> implements Value<T> {
 		};
 	}
 
-	protected void notifyObservers() {
+	@Override
+	public void notifyObservers() {
 		for (Runnable observer : observers) {
 			observer.run();
 		}

@@ -9,9 +9,6 @@ import com.google.common.base.Objects;
 
 public class DynamicProperty<P> implements Property<Object, P> {
 	public static <X> DynamicProperty<X> of(String name, Type<X> type, DynamicType parent) {
-		checkNotNull(name);
-		checkNotNull(type);
-		checkNotNull(parent);
 		return new DynamicProperty<>(name, type, parent);
 	}
 
@@ -19,10 +16,10 @@ public class DynamicProperty<P> implements Property<Object, P> {
 	private final Type<Object> parent;
 	private final Type<P> type;
 
-	private DynamicProperty(String name, Type<P> type, DynamicType parent) {
-		this.name = name;
-		this.type = type;
-		this.parent = parent;
+	protected DynamicProperty(String name, Type<P> type, DynamicType parent) {
+		this.name = checkNotNull(name);
+		this.type = checkNotNull(type);
+		this.parent = checkNotNull(parent);
 		parent.addProperty(this);
 	}
 
