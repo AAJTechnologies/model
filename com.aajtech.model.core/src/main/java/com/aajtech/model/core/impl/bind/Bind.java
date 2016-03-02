@@ -22,11 +22,8 @@ public class Bind<T> {
 	public <X> Bind<X> map(final Function<T, X> converter) {
 		checkNotNull(converter);
 		final JavaValue<X> targetValue = JavaValue.of(JavaType.ofUnchecked(Object.class));
-		value.addObserver(new Runnable() {
-			@Override
-			public void run() {
-				targetValue.set(converter.apply(value.get()));
-			}
+		value.addObserver(() -> {
+			targetValue.set(converter.apply(value.get()));
 		});
 		return new Bind<>(targetValue);
 	}
