@@ -11,6 +11,7 @@ public class JavaType<T> implements Type<T> {
 	public static final JavaType<String> STRING = JavaType.of(String.class);
 	public static final JavaType<Integer> INTEGER = JavaType.of(Integer.class);
 	public static final JavaType<Date> DATE = JavaType.of(Date.class);
+	public static final JavaType<Boolean> BOOLEAN = JavaType.of(Boolean.class);
 
 	public static <X> JavaType<X> of(Class<X> javaClass) {
 		checkNotNull(javaClass);
