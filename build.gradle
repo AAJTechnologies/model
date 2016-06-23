@@ -4,7 +4,7 @@ project.ext {
 
 allprojects {
 	version = '0.1-SNAPSHOT'
-	group = 'com.aajtech.model'
+	group = 'com.aajtech.nibiru.model'
 
 	repositories {
 		mavenLocal()

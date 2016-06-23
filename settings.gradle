@@ -1,4 +1,4 @@
-rootProject.name = 'aajtechModel'
+rootProject.name = 'nibiruModel'
 
-include ':com.aajtech.model.core'
-include ':com.aajtech.model.gen'
+include ':org.nibiru.model.core'
+include ':org.nibiru.model.gen'
