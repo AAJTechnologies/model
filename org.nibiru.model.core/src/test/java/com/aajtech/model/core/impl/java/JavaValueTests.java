@@ -5,8 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.util.Date;
 
 import org.junit.Test;
-
-import com.aajtech.model.core.api.ComplexValue;
+import org.nibiru.model.core.api.ComplexValue;
+import org.nibiru.model.core.impl.java.JavaComplexValue;
+import org.nibiru.model.core.impl.java.JavaValue;
 
 public class JavaValueTests {
 	@Test

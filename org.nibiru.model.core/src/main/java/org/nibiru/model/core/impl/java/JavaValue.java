@@ -1,12 +1,12 @@
-package com.aajtech.model.core.impl.java;
+package org.nibiru.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
-import com.aajtech.model.core.api.Type;
-import com.aajtech.model.core.api.Value;
-import com.aajtech.model.core.impl.BaseValue;
+import org.nibiru.model.core.api.Type;
+import org.nibiru.model.core.api.Value;
+import org.nibiru.model.core.impl.BaseValue;
 
 public class JavaValue<T> extends BaseValue<T> implements Value<T> {
 	public static <X> JavaValue<X> of(@Nullable X value, JavaType<X> type) {

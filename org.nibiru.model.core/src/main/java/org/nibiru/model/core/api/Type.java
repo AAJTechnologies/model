@@ -1,4 +1,4 @@
-package com.aajtech.model.core.api;
+package org.nibiru.model.core.api;
 
 public interface Type<T> {
 	Class<T> cast();

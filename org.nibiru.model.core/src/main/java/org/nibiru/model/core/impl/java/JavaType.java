@@ -1,11 +1,11 @@
-package com.aajtech.model.core.impl.java;
+package org.nibiru.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Date;
 import java.util.List;
 
-import com.aajtech.model.core.api.Type;
+import org.nibiru.model.core.api.Type;
 
 public class JavaType<T> implements Type<T> {
 	public static final JavaType<String> STRING = JavaType.of(String.class);

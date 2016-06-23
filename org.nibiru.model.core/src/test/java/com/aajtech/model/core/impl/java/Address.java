@@ -1,7 +1,8 @@
 package com.aajtech.model.core.impl.java;
 
-import com.aajtech.model.core.api.ComplexType;
-import com.aajtech.model.core.api.Property;
+import org.nibiru.model.core.api.ComplexType;
+import org.nibiru.model.core.api.Property;
+import org.nibiru.model.core.impl.java.JavaComplexType;
 
 public class Address {
 	public static final ComplexType<Address> TYPE = JavaComplexType.of(Address.class);

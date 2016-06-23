@@ -1,10 +1,10 @@
-package com.aajtech.model.core.impl.dynamic;
+package org.nibiru.model.core.impl.dynamic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import org.nibiru.model.core.api.Property;
+import org.nibiru.model.core.api.Type;
 
-import com.aajtech.model.core.api.Property;
-import com.aajtech.model.core.api.Type;
 import com.google.common.base.Objects;
 
 public class DynamicProperty<P> implements Property<Object, P> {

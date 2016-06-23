@@ -2,9 +2,12 @@ package com.aajtech.model.core.impl.java;
 
 import java.util.Date;
 
-import com.aajtech.model.core.api.ComplexType;
-import com.aajtech.model.core.api.Property;
-import com.aajtech.model.core.api.Value;
+import org.nibiru.model.core.api.ComplexType;
+import org.nibiru.model.core.api.Property;
+import org.nibiru.model.core.api.Value;
+import org.nibiru.model.core.impl.java.JavaComplexType;
+import org.nibiru.model.core.impl.java.JavaType;
+import org.nibiru.model.core.impl.java.JavaValue;
 
 public class Person {
 	public static final ComplexType<Person> TYPE = JavaComplexType.of(Person.class);

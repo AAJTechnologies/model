@@ -1,11 +1,12 @@
-package com.aajtech.model.core.impl.java;
+package org.nibiru.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Field;
 
-import com.aajtech.model.core.api.Property;
-import com.aajtech.model.core.api.Type;
+import org.nibiru.model.core.api.Property;
+import org.nibiru.model.core.api.Type;
+
 import com.google.common.annotations.GwtIncompatible;
 
 @GwtIncompatible("Reflection")

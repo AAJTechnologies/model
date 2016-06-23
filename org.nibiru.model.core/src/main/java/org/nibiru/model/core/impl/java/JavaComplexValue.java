@@ -1,12 +1,13 @@
-package com.aajtech.model.core.impl.java;
+package org.nibiru.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
-import com.aajtech.model.core.api.ComplexValue;
-import com.aajtech.model.core.api.Property;
-import com.aajtech.model.core.api.Value;
+import org.nibiru.model.core.api.ComplexValue;
+import org.nibiru.model.core.api.Property;
+import org.nibiru.model.core.api.Value;
+
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.base.Objects;
 

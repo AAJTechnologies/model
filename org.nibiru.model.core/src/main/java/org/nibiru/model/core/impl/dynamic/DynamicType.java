@@ -1,11 +1,12 @@
-package com.aajtech.model.core.impl.dynamic;
+package org.nibiru.model.core.impl.dynamic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
 
-import com.aajtech.model.core.api.ComplexType;
-import com.aajtech.model.core.api.Property;
+import org.nibiru.model.core.api.ComplexType;
+import org.nibiru.model.core.api.Property;
+
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 

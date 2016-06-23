@@ -1,4 +1,4 @@
-package com.aajtech.model.core.impl.dynamic;
+package org.nibiru.model.core.impl.dynamic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -6,11 +6,12 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import com.aajtech.model.core.api.ComplexValue;
-import com.aajtech.model.core.api.Property;
-import com.aajtech.model.core.api.Type;
-import com.aajtech.model.core.api.Value;
-import com.aajtech.model.core.impl.BaseValue;
+import org.nibiru.model.core.api.ComplexValue;
+import org.nibiru.model.core.api.Property;
+import org.nibiru.model.core.api.Type;
+import org.nibiru.model.core.api.Value;
+import org.nibiru.model.core.impl.BaseValue;
+
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 

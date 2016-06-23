@@ -4,19 +4,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.nibiru.model.core.api.ComplexValue;
+import org.nibiru.model.core.api.Property;
+import org.nibiru.model.core.api.Value;
+import org.nibiru.model.core.impl.dynamic.DynamicProperty;
+import org.nibiru.model.core.impl.dynamic.DynamicType;
+import org.nibiru.model.core.impl.dynamic.DynamicValue;
+import org.nibiru.model.core.impl.java.JavaComplexValue;
+import org.nibiru.model.core.impl.java.JavaType;
+import org.nibiru.model.core.impl.java.JavaValue;
 
-import com.aajtech.model.core.api.ComplexValue;
-import com.aajtech.model.core.api.Property;
-import com.aajtech.model.core.api.Value;
 import com.aajtech.model.core.impl.java.Address;
-import com.aajtech.model.core.impl.java.JavaComplexValue;
-import com.aajtech.model.core.impl.java.JavaType;
-import com.aajtech.model.core.impl.java.JavaValue;
 
 public class DynamicValueTests {
 	@Test
 	public void test() throws Exception {
-		DynamicType personType = DynamicType.of("Person", "com.aajtech.model.core.impl.dynamic");
+		DynamicType personType = DynamicType.of("Person", "org.nibiru.model.core.impl.dynamic");
 		Property<Object, String> nameProperty = DynamicProperty.of("name", JavaType.of(String.class), personType);
 
 		ComplexValue<Object> personValue = DynamicValue.of(personType);
@@ -24,7 +27,7 @@ public class DynamicValueTests {
 
 		assertEquals("pepe", personValue.get(nameProperty).get());
 
-		DynamicType addressType = DynamicType.of("Address", "com.aajtech.model.core.impl.dynamic");
+		DynamicType addressType = DynamicType.of("Address", "org.nibiru.model.core.impl.dynamic");
 		Property<Object, Object> addressProperty = DynamicProperty.of("address", addressType, personType);
 		Property<Object, String> streetProperty = DynamicProperty.of("street", JavaType.of(String.class),
 				addressType);

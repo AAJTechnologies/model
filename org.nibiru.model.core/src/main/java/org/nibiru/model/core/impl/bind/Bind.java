@@ -1,10 +1,11 @@
-package com.aajtech.model.core.impl.bind;
+package org.nibiru.model.core.impl.bind;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.aajtech.model.core.api.Value;
-import com.aajtech.model.core.impl.java.JavaType;
-import com.aajtech.model.core.impl.java.JavaValue;
+import org.nibiru.model.core.api.Value;
+import org.nibiru.model.core.impl.java.JavaType;
+import org.nibiru.model.core.impl.java.JavaValue;
+
 import com.google.common.base.Function;
 
 public class Bind<T> {

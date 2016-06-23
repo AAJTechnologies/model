@@ -1,4 +1,4 @@
-package com.aajtech.model.core.impl;
+package org.nibiru.model.core.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -6,8 +6,9 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
-import com.aajtech.model.core.api.Registration;
-import com.aajtech.model.core.api.Value;
+import org.nibiru.model.core.api.Registration;
+import org.nibiru.model.core.api.Value;
+
 import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
 

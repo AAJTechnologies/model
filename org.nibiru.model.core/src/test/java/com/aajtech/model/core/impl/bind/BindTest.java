@@ -3,11 +3,10 @@ package com.aajtech.model.core.impl.bind;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import com.aajtech.model.core.api.Value;
-import com.aajtech.model.core.impl.bind.Bind;
-import com.aajtech.model.core.impl.java.JavaType;
-import com.aajtech.model.core.impl.java.JavaValue;
+import org.nibiru.model.core.api.Value;
+import org.nibiru.model.core.impl.bind.Bind;
+import org.nibiru.model.core.impl.java.JavaType;
+import org.nibiru.model.core.impl.java.JavaValue;
 
 public class BindTest {
 	@Test

@@ -1,12 +1,13 @@
-package com.aajtech.model.core.impl.java;
+package org.nibiru.model.core.impl.java;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-import com.aajtech.model.core.api.ComplexType;
-import com.aajtech.model.core.api.Property;
+import org.nibiru.model.core.api.ComplexType;
+import org.nibiru.model.core.api.Property;
+
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.Iterables;
 
