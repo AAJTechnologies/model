@@ -1,4 +1,4 @@
-package com.aajtech.model.core.impl.dynamic;
+package org.nibiru.model.core.impl.dynamic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -7,14 +7,11 @@ import org.junit.Test;
 import org.nibiru.model.core.api.ComplexValue;
 import org.nibiru.model.core.api.Property;
 import org.nibiru.model.core.api.Value;
-import org.nibiru.model.core.impl.dynamic.DynamicProperty;
-import org.nibiru.model.core.impl.dynamic.DynamicType;
-import org.nibiru.model.core.impl.dynamic.DynamicValue;
 import org.nibiru.model.core.impl.java.JavaComplexValue;
 import org.nibiru.model.core.impl.java.JavaType;
 import org.nibiru.model.core.impl.java.JavaValue;
 
-import com.aajtech.model.core.impl.java.Address;
+import org.nibiru.model.core.impl.java.Address;
 
 public class DynamicValueTests {
 	@Test

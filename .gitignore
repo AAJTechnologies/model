@@ -9,3 +9,10 @@ bin
 gen
 target
 .DS_Store
+.idea
+/**/*.iml
+/**/gradle/
+gradlew
+gradlew.bat
+local.properties
+.apt_generated

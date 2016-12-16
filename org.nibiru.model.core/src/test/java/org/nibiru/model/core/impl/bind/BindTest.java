@@ -1,4 +1,4 @@
-package com.aajtech.model.core.impl.bind;
+package org.nibiru.model.core.impl.bind;
 
 import static org.junit.Assert.assertEquals;
 

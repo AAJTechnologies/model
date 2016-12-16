@@ -25,21 +25,11 @@ public class IterableBind<T> {
 		checkNotNull(converter);
 		@SuppressWarnings("unchecked")
 		final JavaValue<Iterable<X>> targetValue = JavaValue.of(JavaType.ofIterable((Class<X>) Object.class));
-		value.addObserver(new Runnable() {
-			@Override
-			public void run() {
-				targetValue.set(Iterables.transform(value.get(), converter));
-			}
-		});
+		value.addObserver(() -> targetValue.set(Iterables.transform(value.get(), converter)));
 		return new IterableBind<>(targetValue);
 	}
 
 	public void to(final Value<Iterable<T>> target) {
-		value.addObserver(new Runnable() {
-			@Override
-			public void run() {
-				target.set(value.get());
-			}
-		});
+		value.addObserver(() -> target.set(value.get()));
 	}
 }
