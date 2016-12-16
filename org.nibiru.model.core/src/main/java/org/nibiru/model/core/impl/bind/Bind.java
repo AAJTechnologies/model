@@ -31,11 +31,6 @@ public class Bind<T> {
 
 	public void to(final Value<T> target) {
 		checkNotNull(target);
-		value.addObserver(new Runnable() {
-			@Override
-			public void run() {
-				target.set(value.get());
-			}
-		});
+		value.addObserver(() -> target.set(value.get()));
 	}
 }

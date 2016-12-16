@@ -9,12 +9,12 @@ import org.nibiru.model.core.api.Value;
 import org.nibiru.model.core.impl.BaseValue;
 
 public class JavaValue<T> extends BaseValue<T> implements Value<T> {
-	public static <X> JavaValue<X> of(@Nullable X value, JavaType<X> type) {
+	public static <X> JavaValue<X> of(@Nullable X value, Type<X> type) {
 		checkNotNull(type);
 		return new JavaValue<>(value, type);
 	}
 
-	public static <X> JavaValue<X> of(JavaType<X> type) {
+	public static <X> JavaValue<X> of(Type<X> type) {
 		checkNotNull(type);
 		return new JavaValue<>(null, type);
 	}
@@ -27,9 +27,9 @@ public class JavaValue<T> extends BaseValue<T> implements Value<T> {
 	}
 
 	private T value;
-	private final JavaType<T> type;
+	private final Type<T> type;
 
-	JavaValue(T value, JavaType<T> type) {
+	JavaValue(T value, Type<T> type) {
 		this.value = value;
 		this.type = type;
 	}
