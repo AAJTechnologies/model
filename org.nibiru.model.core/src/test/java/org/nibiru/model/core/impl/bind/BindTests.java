@@ -8,7 +8,7 @@ import org.nibiru.model.core.impl.bind.Bind;
 import org.nibiru.model.core.impl.java.JavaType;
 import org.nibiru.model.core.impl.java.JavaValue;
 
-public class BindTest {
+public class BindTests {
 	@Test
 	public void test() throws Exception {
 		Value<Integer> source = JavaValue.of(JavaType.INTEGER);
