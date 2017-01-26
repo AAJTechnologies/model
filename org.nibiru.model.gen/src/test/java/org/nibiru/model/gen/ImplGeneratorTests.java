@@ -1,30 +1,24 @@
 package org.nibiru.model.gen;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
-public class ImplGeneratorTests {
-    private ImplGenerator generator;
-
-    @Before
-    public void setUp() {
-        generator = new ImplGenerator();
+public class ImplGeneratorTests extends BaseTest {
+    @Override
+    Generator buildGenerator() {
+        return new ImplGenerator();
     }
 
     @Test
     public void directoryTest() throws Exception {
-        String code = generator.generate(Directory.class);
-
-        assertEquals("package org.nibiru.model.gen;\n" +
+        testCode(Directory.class,
+                "package org.nibiru.model.gen;\n" +
                 "\n" +
                 "import java.lang.Override;\n" +
                 "import java.lang.String;\n" +
                 "import org.nibiru.model.core.api.Value;\n" +
                 "\n" +
                 "public class DirectoryImpl implements Directory {\n" +
-                "  final Value<String> name;\n" +
+                "  final Value<String> name = org.nibiru.model.core.impl.java.JavaValue.of((String)null);\n" +
                 "\n" +
                 "  @Override\n" +
                 "  public String getName() {\n" +
@@ -35,23 +29,22 @@ public class ImplGeneratorTests {
                 "  public void setName(String name) {\n" +
                 "    this.name.set(name);\n" +
                 "  }\n" +
-                "}\n", code);
+                "}\n");
     }
 
     @Test
     public void projectTest() throws Exception {
-        String code = generator.generate(Project.class);
-
-        assertEquals("package org.nibiru.model.gen;\n" +
+        testCode(Project.class,
+                "package org.nibiru.model.gen;\n" +
                 "\n" +
                 "import java.lang.Override;\n" +
                 "import java.lang.String;\n" +
                 "import org.nibiru.model.core.api.Value;\n" +
                 "\n" +
                 "public class ProjectImpl implements Project {\n" +
-                "  final Value<Directory> root;\n" +
+                "  final Value<Directory> root = new org.nibiru.model.gen.DirectoryValue();\n" +
                 "\n" +
-                "  final Value<String> name;\n" +
+                "  final Value<String> name = org.nibiru.model.core.impl.java.JavaValue.of((String)null);\n" +
                 "\n" +
                 "  @Override\n" +
                 "  public Directory getRoot() {\n" +
@@ -72,6 +65,6 @@ public class ImplGeneratorTests {
                 "  public void setName(String name) {\n" +
                 "    this.name.set(name);\n" +
                 "  }\n" +
-                "}\n", code);
+                "}\n");
     }
 }

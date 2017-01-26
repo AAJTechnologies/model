@@ -1,5 +1,9 @@
 package org.nibiru.model.gen;
 
+import com.squareup.javapoet.TypeSpec;
+
+import javax.lang.model.element.TypeElement;
+
 public interface Generator {
-    String generate(Class<?> clazz);
+    TypeSpec generate(TypeElement clazz);
 }

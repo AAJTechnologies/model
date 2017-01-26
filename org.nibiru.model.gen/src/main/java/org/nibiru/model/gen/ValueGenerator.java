@@ -1,7 +1,6 @@
 package org.nibiru.model.gen;
 
 import com.google.common.base.CaseFormat;
-import com.google.common.base.Preconditions;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -18,14 +17,15 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 
 public class ValueGenerator extends BaseGenerator {
     private static final TypeVariableName X_TYPE = TypeVariableName.get("X");
     private static final String PROPERTY_VAR = "property";
 
     @Override
-    TypeSpec generateCode(Class<?> clazz) {
-        String className = clazz.getSimpleName();
+    TypeSpec generateCode(TypeElement clazz) {
+        String className = clazz.getSimpleName().toString();
         String valueName = className + "Value";
         String implName = className + "Impl";
         String typeName = className + "Type";
@@ -44,13 +44,13 @@ public class ValueGenerator extends BaseGenerator {
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(Override.class)
                 .addTypeVariable(X_TYPE)
-                .addParameter(ParameterizedTypeName.get(ClassName.get(Property.class), X_TYPE), PROPERTY_VAR)
+                .addParameter(ParameterizedTypeName.get(ClassName.get(Property.class), ClassName.get(clazz), X_TYPE), PROPERTY_VAR)
                 .returns(ParameterizedTypeName.get(ClassName.get(Value.class), X_TYPE))
                 .addStatement("com.google.common.base.Preconditions.checkNotNull(property)");
         getBuilder.addCode("switch ($L.getName()) {\n", PROPERTY_VAR);
-        for (Map.Entry<String, Class<?>> entry : getFields(clazz).entrySet()) {
+        for (Map.Entry<String, TypeElement> entry : getFields(clazz).entrySet()) {
             String field = entry.getKey();
-            Class<?> type = entry.getValue();
+            TypeElement type = entry.getValue();
 
             getBuilder.addCode("  case $L.$L:\n", typeName, CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, field) + TypeGenerator.PROPERTY_SUFFIX);
             getBuilder.addStatement("    return (Value<X>) $L.$L", objectVar, field);
@@ -74,7 +74,7 @@ public class ValueGenerator extends BaseGenerator {
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(Override.class)
                 .addAnnotation(Nullable.class)
-                .returns(clazz)
+                .returns(ClassName.get(clazz))
                 .addStatement("return $L", objectVar)
                 .build());
 
@@ -82,7 +82,7 @@ public class ValueGenerator extends BaseGenerator {
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(Override.class)
                 .returns(ParameterizedTypeName.get(ClassName.get(Type.class), ClassName.get(clazz)))
-                .addStatement("return $L.$L", objectVar, TypeGenerator.INSTANCE_VAR)
+                .addStatement("return $L.$L", typeName, TypeGenerator.INSTANCE_VAR)
                 .build());
 
         return typeBuilder.build();

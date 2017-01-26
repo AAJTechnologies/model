@@ -5,19 +5,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ValueGeneratorTests {
-    private ValueGenerator generator;
-
-    @Before
-    public void setUp() {
-        generator = new ValueGenerator();
+public class ValueGeneratorTests  extends BaseTest {
+    @Override
+    Generator buildGenerator() {
+        return new ValueGenerator();
     }
 
     @Test
     public void directoryTest() throws Exception {
-        String code = generator.generate(Directory.class);
-
-        assertEquals("package org.nibiru.model.gen;\n" +
+        testCode(Directory.class,
+                "package org.nibiru.model.gen;\n" +
                 "\n" +
                 "import java.lang.Override;\n" +
                 "import javax.annotation.Nullable;\n" +
@@ -30,7 +27,7 @@ public class ValueGeneratorTests {
                 "  private DirectoryImpl directory;\n" +
                 "\n" +
                 "  @Override\n" +
-                "  public <X> Value<X> get(Property<X> property) {\n" +
+                "  public <X> Value<X> get(Property<Directory, X> property) {\n" +
                 "    com.google.common.base.Preconditions.checkNotNull(property);\n" +
                 "    switch (property.getName()) {\n" +
                 "      case DirectoryType.NAME_PROPERTY:\n" +
@@ -53,16 +50,15 @@ public class ValueGeneratorTests {
                 "\n" +
                 "  @Override\n" +
                 "  public Type<Directory> getType() {\n" +
-                "    return directory.INSTANCE;\n" +
+                "    return DirectoryType.INSTANCE;\n" +
                 "  }\n" +
-                "}\n", code);
+                "}\n");
     }
 
     @Test
     public void projectTest() throws Exception {
-        String code = generator.generate(Project.class);
-
-        assertEquals("package org.nibiru.model.gen;\n" +
+        testCode(Project.class,
+                "package org.nibiru.model.gen;\n" +
                 "\n" +
                 "import java.lang.Override;\n" +
                 "import javax.annotation.Nullable;\n" +
@@ -75,7 +71,7 @@ public class ValueGeneratorTests {
                 "  private ProjectImpl project;\n" +
                 "\n" +
                 "  @Override\n" +
-                "  public <X> Value<X> get(Property<X> property) {\n" +
+                "  public <X> Value<X> get(Property<Project, X> property) {\n" +
                 "    com.google.common.base.Preconditions.checkNotNull(property);\n" +
                 "    switch (property.getName()) {\n" +
                 "      case ProjectType.ROOT_PROPERTY:\n" +
@@ -100,8 +96,8 @@ public class ValueGeneratorTests {
                 "\n" +
                 "  @Override\n" +
                 "  public Type<Project> getType() {\n" +
-                "    return project.INSTANCE;\n" +
+                "    return ProjectType.INSTANCE;\n" +
                 "  }\n" +
-                "}\n", code);
+                "}\n");
     }
 }
