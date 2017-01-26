@@ -3,10 +3,8 @@ build
 .project
 .classpath
 .gradle
-gwt-unitCache
 classes
 bin
-gen
 target
 .DS_Store
 .idea
