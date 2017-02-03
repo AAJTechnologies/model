@@ -18,7 +18,7 @@ public class ImplGeneratorTests extends BaseTest {
                 "import org.nibiru.model.core.api.Value;\n" +
                 "\n" +
                 "public class DirectoryImpl implements Directory {\n" +
-                "  final Value<String> name = org.nibiru.model.core.impl.java.JavaValue.of((String)null);\n" +
+                "  final Value<String> name = org.nibiru.model.core.impl.java.JavaValue.of(null, org.nibiru.model.core.impl.java.JavaType.STRING);\n" +
                 "\n" +
                 "  @Override\n" +
                 "  public String getName() {\n" +
@@ -44,7 +44,7 @@ public class ImplGeneratorTests extends BaseTest {
                 "public class ProjectImpl implements Project {\n" +
                 "  final Value<Directory> root = new org.nibiru.model.gen.DirectoryValue();\n" +
                 "\n" +
-                "  final Value<String> name = org.nibiru.model.core.impl.java.JavaValue.of((String)null);\n" +
+                "  final Value<String> name = org.nibiru.model.core.impl.java.JavaValue.of(null, org.nibiru.model.core.impl.java.JavaType.STRING);\n" +
                 "\n" +
                 "  @Override\n" +
                 "  public Directory getRoot() {\n" +

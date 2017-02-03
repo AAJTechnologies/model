@@ -15,7 +15,6 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
@@ -29,7 +28,6 @@ public class GeneratorProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations,
                            RoundEnvironment roundEnv) {
-//        try {
         TypeMirror generateType = processingEnv.getElementUtils().getTypeElement(
                 Generate.class.getName()).asType();
         for (TypeElement element : ElementFilter.typesIn(roundEnv.getElementsAnnotatedWith(Generate.class))) {
@@ -48,7 +46,7 @@ public class GeneratorProcessor extends AbstractProcessor {
                                     JavaFileObject jfo = processingEnv.getFiler().createSourceFile(
                                             element.getEnclosingElement().toString() + "." + typeSpec.name);
 
-                                    try (Writer file =jfo.openWriter()) {
+                                    try (Writer file = jfo.openWriter()) {
                                         JavaFile.builder(element.getEnclosingElement().toString(), typeSpec)
                                                 .build().writeTo(file);
                                         file.flush();
@@ -64,8 +62,5 @@ public class GeneratorProcessor extends AbstractProcessor {
             }
         }
         return true;
-//        } catch (InstantiationException | IllegalAccessException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 }

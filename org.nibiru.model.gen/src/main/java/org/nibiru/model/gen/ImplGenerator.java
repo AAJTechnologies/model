@@ -1,6 +1,5 @@
 package org.nibiru.model.gen;
 
-import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.squareup.javapoet.ClassName;
@@ -10,7 +9,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import org.nibiru.model.core.api.Value;
-import org.nibiru.model.core.impl.java.JavaType;
 import org.nibiru.model.core.impl.java.JavaValue;
 
 import java.util.Map;
@@ -78,7 +76,7 @@ public class ImplGenerator extends BaseGenerator {
     private String getInitializer(TypeElement value) {
         String className = value.getQualifiedName().toString();
         if (String.class.getName().equals(className)) {
-            return JavaValue.class.getName() + (".of((" + value.getSimpleName() + ")null)");
+            return JavaValue.class.getName() + (".of(null, org.nibiru.model.core.impl.java.JavaType.STRING)");
         } else {
             return "new " + value.getQualifiedName() + "Value()";
         }
