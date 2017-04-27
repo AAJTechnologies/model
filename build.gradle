@@ -4,7 +4,7 @@ project.ext {
 
 allprojects {
 	version = '0.1-SNAPSHOT'
-	group = 'io.github.nibiruos'
+	group = 'io.github.nibiruos.model'
 
 	repositories {
 		mavenLocal()
