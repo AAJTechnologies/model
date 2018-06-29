@@ -5,5 +5,7 @@ public interface Type<T> {
 	
 	String getName();
 
+	String getSimpleName();
+
 	String getNamespace();
 }
