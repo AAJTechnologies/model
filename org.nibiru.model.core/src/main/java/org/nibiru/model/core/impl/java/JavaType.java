@@ -53,6 +53,11 @@ public class JavaType<T> implements Type<T> {
 	}
 
 	@Override
+	public String getSimpleName() {
+		return javaClass.getSimpleName();
+	}
+
+	@Override
 	public String getNamespace() {
 		String name = javaClass.getCanonicalName();
 		return name.substring(0, name.lastIndexOf('.'));

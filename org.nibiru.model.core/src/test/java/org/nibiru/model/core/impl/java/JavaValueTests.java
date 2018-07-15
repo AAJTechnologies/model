@@ -1,33 +1,33 @@
 package org.nibiru.model.core.impl.java;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Date;
-
 import org.junit.Test;
-import org.nibiru.model.core.api.ComplexValue;
+import org.nibiru.model.core.api.Value;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class JavaValueTests {
-	@Test
-	public void test() throws Exception {
-		ComplexValue<Person> personValue = JavaComplexValue.of(new Person());
+    @Test
+    public void test() {
+        Value<String> value = JavaValue.of("Hi!");
+        assertEquals("Hi!", value.get());
 
-		Person person = personValue.get();
+        value.set("Bye!");
+        assertEquals("Bye!", value.get());
 
-		person.setName("a");
-		String name = personValue.get(Person.NAME).get();
-		assertEquals("a", name);
+        value = JavaValue.of(JavaType.STRING);
+        assertNull(value.get());
 
-		personValue.set(Person.NAME, JavaValue.of("b")).set(Person.BIRTHDAY, JavaValue.of(new Date(123)));
-		assertEquals("b", person.getName());
-		assertEquals(new Date(123), person.getBirthday());
+        value.set("Not null");
+        assertEquals("Not null", value.get());
+    }
 
-		personValue.set(Person.ADDRESS, JavaComplexValue.of(new Address()));
-		personValue.getComplex(Person.ADDRESS).set(Address.STREET, JavaValue.of("elm"));
-		assertEquals("elm", person.getAddress().getStreet());
-
-		personValue.get(Person.BIRTHDAY).set(new Date(456));
-		assertEquals(new Date(456), person.getBirthday());
-		assertEquals(new Date(456), person.birthday.get());
-	}
+    @Test
+    public void notifyTest() {
+        Value<String> value = JavaValue.of("Hi!");
+        value.addObserver(() ->
+                assertEquals("Bye!", value.get())
+        );
+        value.set("Bye!");
+    }
 }
